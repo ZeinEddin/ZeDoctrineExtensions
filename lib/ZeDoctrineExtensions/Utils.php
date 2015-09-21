@@ -40,7 +40,9 @@ class Utils
                 'TruncDate' => 'ZeDoctrineExtensions\Query\Oracle\TruncDate',
             ),
             'string_functions' => array(),
-            'numeric_functions' => array(),
+            'numeric_functions' => array(
+                'ToNumber' => 'ZeDoctrineExtensions\Query\Oracle\ToNumber'
+            ),
         );
     }
     
