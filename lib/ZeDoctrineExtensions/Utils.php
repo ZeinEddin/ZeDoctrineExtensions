@@ -34,6 +34,7 @@ class Utils
     {
         return array(
             'datetime_functions' => array(
+                'Nvl2' => 'ZeDoctrineExtensions\Query\Oracle\Nvl2',
                 'Nvl' => 'ZeDoctrineExtensions\Query\Oracle\Nvl',
                 'Translate' => 'ZeDoctrineExtensions\Query\Oracle\Translate',
                 'ToDate' => 'ZeDoctrineExtensions\Query\Oracle\ToDate',
