@@ -39,6 +39,8 @@ class Utils
                 'Translate' => 'ZeDoctrineExtensions\Query\Oracle\Translate',
                 'ToDate' => 'ZeDoctrineExtensions\Query\Oracle\ToDate',
                 'TruncDate' => 'ZeDoctrineExtensions\Query\Oracle\TruncDate',
+                'Extract' => 'ZeDoctrineExtensions\Query\Oracle\Extract',
+                'Listagg' => 'ZeDoctrineExtensions\Query\Oracle\Listagg',
             ),
             'string_functions' => array(),
             'numeric_functions' => array(
