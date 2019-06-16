@@ -58,6 +58,7 @@ class Utils
                 'TimeToSec' => 'ZeDoctrineExtensions\Query\MySQL\TimeToSec',
                 'StrToDate' => 'ZeDoctrineExtensions\Query\MySQL\StrToDate',
                 'Extract' => 'ZeDoctrineExtensions\Query\MySQL\Extract',
+                'GroupConcat' => 'ZeDoctrineExtensions\Query\MySQL\GroupConcat',
             ),
             'string_functions' => array(
                 'IfNull' => 'ZeDoctrineExtensions\Query\MySQL\IfNull',
