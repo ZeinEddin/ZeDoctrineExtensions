@@ -17,8 +17,8 @@
 
 namespace ZeDoctrineExtensions\Query\Oracle;
 
-use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
+use Doctrine\ORM\Query\TokenType;
 
 /**
  * ToChar(value, fmt, nlsparam)
@@ -65,22 +65,22 @@ class ToChar extends FunctionNode
     public function parse(\Doctrine\ORM\Query\Parser $parser)
     {
         $lexer = $parser->getLexer();
-        $parser->match(Lexer::T_IDENTIFIER);
-        $parser->match(Lexer::T_OPEN_PARENTHESIS);
+        $parser->match(TokenType::T_IDENTIFIER);
+        $parser->match(TokenType::T_OPEN_PARENTHESIS);
         $this->value = $parser->ArithmeticExpression();
         
         // parse second format parameter if available
-        if (Lexer::T_COMMA === $lexer->lookahead['type']) {
-            $parser->match(Lexer::T_COMMA);
+        if ($lexer->lookahead->isA(TokenType::T_COMMA)) {
+            $parser->match(TokenType::T_COMMA);
             $this->fmt = $parser->ArithmeticPrimary();
             
             // parse third nlsparam parameter if available
-            if (Lexer::T_COMMA === $lexer->lookahead['type']) {
-                $parser->match(Lexer::T_COMMA);
+            if ($lexer->lookahead->isA(TokenType::T_COMMA)) {
+                $parser->match(TokenType::T_COMMA);
                 $this->nlsparam = $parser->ArithmeticPrimary();
             }
         }
         
-        $parser->match(Lexer::T_CLOSE_PARENTHESIS);
+        $parser->match(TokenType::T_CLOSE_PARENTHESIS);
     }
 }

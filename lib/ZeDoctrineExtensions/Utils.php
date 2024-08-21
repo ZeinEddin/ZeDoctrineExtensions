@@ -42,7 +42,9 @@ class Utils
                 'Extract' => 'ZeDoctrineExtensions\Query\Oracle\Extract',
                 'Listagg' => 'ZeDoctrineExtensions\Query\Oracle\Listagg',
             ),
-            'string_functions' => array(),
+            'string_functions' => array(
+                'ToNumber' => 'ZeDoctrineExtensions\Query\Oracle\ToNumber',
+            ),
             'numeric_functions' => array(
                 'ToChar' => 'ZeDoctrineExtensions\Query\Oracle\ToChar',
             ),

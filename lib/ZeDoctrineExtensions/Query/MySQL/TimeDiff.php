@@ -17,7 +17,7 @@
 
 namespace ZeDoctrineExtensions\Query\MySQL;
 
-use Doctrine\ORM\Query\Lexer;
+use Doctrine\ORM\Query\TokenType;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 
 /**
@@ -56,11 +56,11 @@ class TimeDiff extends FunctionNode
      */
     public function parse(\Doctrine\ORM\Query\Parser $parser)
     {
-        $parser->match(Lexer::T_IDENTIFIER);
-        $parser->match(Lexer::T_OPEN_PARENTHESIS);
+        $parser->match(TokenType::T_IDENTIFIER);
+        $parser->match(TokenType::T_OPEN_PARENTHESIS);
         $this->firstTimeExpression = $parser->ArithmeticPrimary();
-        $parser->match(Lexer::T_COMMA);
+        $parser->match(TokenType::T_COMMA);
         $this->secondTimeExpression = $parser->ArithmeticPrimary();
-        $parser->match(Lexer::T_CLOSE_PARENTHESIS);
+        $parser->match(TokenType::T_CLOSE_PARENTHESIS);
     }
 }

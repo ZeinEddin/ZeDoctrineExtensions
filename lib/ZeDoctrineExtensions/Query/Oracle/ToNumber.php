@@ -21,12 +21,11 @@ use Doctrine\ORM\Query\TokenType;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 
 /**
- * ToDate(date, fmt, nlsparam)
+ * ToNumber(value)
  *
- * TO_DATE converts char of CHAR, VARCHAR2, NCHAR, or NVARCHAR2 data type 
- * to a value of DATE data type.
+ * TO_NUMBER converts expr to a value of NUMBER data type. The expr can be a number value of CHAR, VARCHAR2, NCHAR, NVARCHAR2, BINARY_FLOAT, or BINARY_DOUBLE data type.
  * More info:
- * http://docs.oracle.com/database/121/SQLRF/functions218.htm#SQLRF06132
+ * https://docs.oracle.com/cd/E11882_01/server.112/e41084/functions211.htm#SQLRF06140
  *
  * @category    ZeDoctrineExtensions
  * @package     ZeDoctrineExtensions\Query\Oracle
@@ -34,9 +33,9 @@ use Doctrine\ORM\Query\AST\Functions\FunctionNode;
  * @author      Mohammad ZeinEddin <mohammad@zeineddin.name>
  */
 
-class ToDate extends FunctionNode
+class ToNumber extends FunctionNode
 {
-    private $date;
+    private $value;
     private $fmt = null;
     private $nlsparam = null;
 
@@ -45,18 +44,7 @@ class ToDate extends FunctionNode
      */
     public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
     {
-        $sql = 'TO_DATE(' . $this->date->dispatch($sqlWalker);
-        // use second format parameter if parsed
-        if (null !== $this->fmt) {
-            $sql .= ',' . $this->fmt->dispatch($sqlWalker);
-            
-            // use third nlsparam parameter if parsed
-            if (null !== $this->nlsparam) {
-                $sql .= ',' . $this->nlsparam->dispatch($sqlWalker);
-            }
-        }
-        $sql .= ')';
-        
+        $sql = 'TO_NUMBER(' . $this->value->dispatch($sqlWalker). ')';
         return $sql;
     }
 
@@ -68,20 +56,7 @@ class ToDate extends FunctionNode
         $lexer = $parser->getLexer();
         $parser->match(TokenType::T_IDENTIFIER);
         $parser->match(TokenType::T_OPEN_PARENTHESIS);
-        $this->date = $parser->ArithmeticExpression();
-        
-        // parse second format parameter if available
-        if ($lexer->lookahead->isA(TokenType::T_COMMA)) {
-            $parser->match(TokenType::T_COMMA);
-            $this->fmt = $parser->ArithmeticPrimary();
-            
-            // parse third nlsparam parameter if available
-            if ($lexer->lookahead->isA(TokenType::T_COMMA)) {
-                $parser->match(TokenType::T_COMMA);
-                $this->nlsparam = $parser->ArithmeticPrimary();
-            }
-        }
-        
+        $this->value = $parser->ArithmeticExpression();
         $parser->match(TokenType::T_CLOSE_PARENTHESIS);
     }
 }
